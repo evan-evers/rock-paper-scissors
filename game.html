@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let humanScore = 0;
+        let computerScore = 0;
+
+        function GetComputerChoice()
+        {
+            let choice = Math.floor(Math.random() * 3);
+
+            switch(choice)
+            {
+                case(0):
+                    return "Rock!";
+                break;
+
+                case(1):
+                    return "Paper!";
+                break;
+
+                case(2):
+                    return "Scissors!";
+                break;
+            }
+        }
+
+        function GetHumanChoice()
+        {
+            let choice = prompt("Enter your choice:");
+
+            switch(choice)
+            {
+                case("rock"):
+                case("Rock"):
+                    return "Rock!";
+                break;
+
+                case("paper"):
+                case("Paper"):
+                    return "Paper!";
+                break;
+
+                case("scissors"):
+                case("Scissors"):
+                    return "Scissors!";
+                break;
+            }
+        }
+
+        console.log(GetHumanChoice());
+        console.log(GetComputerChoice());
+    </script>
+</body>
+</html>
