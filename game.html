@@ -6,6 +6,11 @@
     <title>Document</title>
 </head>
 <body>
+    <button class="buttonChoice" id="buttonRock">Rock</button>
+    <button class="buttonChoice" id="buttonPaper">Paper</button>
+    <button class="buttonChoice" id="buttonScissors">Scissors</button>
+    <div id="results"></div>
+
     <script>
         let humanScore = 0;
         let computerScore = 0;
@@ -51,56 +56,96 @@
             }
         }
 
-        function playRound()
+        function playRound(humanChoice)
         {
-            let humanChoice = GetHumanChoice();
+            // No functionality if game has already been won
+            if(humanScore >= 5 || computerScore >= 5)
+            {
+                return;
+            }
+
+            let textDiv = document.querySelector("#results");
+            textDiv.querySelectorAll('*').forEach(n => n.remove());
+
             let computerChoice = GetComputerChoice();
 
-            console.log(`Human chose: ${humanChoice}`);
-            console.log(`Computer chose: ${computerChoice}`);
+            const humanChoicePara = document.createElement("p");
+            humanChoicePara.textContent = `Human chose: ${humanChoice}`;
+            textDiv.appendChild(humanChoicePara);
+
+            const computerChoicePara = document.createElement("p");
+            computerChoicePara.textContent = `Computer chose: ${computerChoice}`;
+            textDiv.appendChild(computerChoicePara);
+
+
+            const gameResultPara = document.createElement("p");
             if(humanChoice === computerChoice)
             {
-                console.log("It's a tie!");
+                gameResultPara.textContent = "It's a tie!";
             }
             else if(humanChoice === "Rock!" && computerChoice === "Scissors!" || humanChoice === "Paper!" && computerChoice === "Rock!" || humanChoice === "Scissors!" && computerChoice === "Paper!" )
             {
-                console.log("Human wins!");
+                gameResultPara.textContent = "Human wins!";
                 humanScore++;
             }
             else
             {
-                console.log("Computer wins!");
+                gameResultPara.textContent = "Computer wins!";
                 computerScore++;
             }
+            textDiv.appendChild(gameResultPara);
+
+
+
+            const humanScorePara = document.createElement("p");
+            humanScorePara.textContent = `Human score: ${humanScore}`;
+            textDiv.appendChild(humanScorePara);
+
+            const computerScorePara = document.createElement("p");
+            computerScorePara.textContent = `Computer score: ${computerScore}`;
+            textDiv.appendChild(computerScorePara);
+
+
+
+            if(humanScore >= 5)
+            {
+                const computerScorePara = document.createElement("p");
+                computerScorePara.textContent = "Human wins the game!";
+                textDiv.appendChild(computerScorePara);
+            }
+
+            if(computerScore >= 5)
+            {
+                const computerScorePara = document.createElement("p");
+                computerScorePara.textContent = "Computer wins the game!";
+                textDiv.appendChild(computerScorePara);
+            }
         }
 
-        function playGame()
-        {
-            for(let i = 1; i <= 5; ++i)
-            {
-                console.log(`Round ${i}`);
 
-                playRound();
 
-                console.log(`Human score is: ${humanScore}`);
-                console.log(`Computer score is: ${computerScore}`);
-            }
+        const buttons = document.querySelectorAll(".buttonChoice");
+        
+        buttons.forEach((element) => element.addEventListener("click", (event) => {
+            switch(element.id)
+            {
+                case("buttonRock"):
+                    playRound("Rock!");
+                break;
 
-            if(humanScore > computerScore)
-            {
-                console.log("Human wins the game!");
-            }
-            else if(humanScore === computerScore)
-            {
-                console.log("The game is a tie!");
-            }
-            else
-            {
-                console.log("Computer wins the game!");
-            }
-        }
+                case("buttonPaper"):
+                    playRound("Paper!");
+                break;
 
-        playGame();
+                case("buttonScissors"):
+                    playRound("Scissors!");
+                break;
+            }
+        }));
+
+
+
+        // playGame();
     </script>
 </body>
 </html>
